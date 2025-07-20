@@ -78,6 +78,7 @@ export default function PfpRightSide() {
   const [showPiiDialog, setShowPiiDialog] = useState(false);
   const [piiAnalysis, setPiiAnalysis] = useState<{ score: number; level: string; summary: string } | null>(null);
   const [analysisSummary, setAnalysisSummary] = useState<string | null>(null);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
 
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -198,6 +199,7 @@ export default function PfpRightSide() {
 
     // Call backend for PII analysis of the uploaded image and show the result
     try {
+      setIsAnalyzing(true);
       const backendBase = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8000";
       const response = await fetch(`${backendBase}/api/image/analyze-image`, {
         method: "POST",
@@ -220,10 +222,12 @@ export default function PfpRightSide() {
         if (piiSummary) {
           setPiiAnalysis(piiSummary);
         }
+        setIsAnalyzing(false);
         setShowPiiDialog(true);
       }
     } catch (err) {
       console.error("Failed to fetch PII analysis:", err);
+      setIsAnalyzing(false);
     }
 
     const { error } = await supabase.from("profiles").upsert({
@@ -624,6 +628,25 @@ export default function PfpRightSide() {
             >
               Still want to continue to Dashboard
             </button>
+          </div>
+        </div>
+      )}
+      {/* Analyzing dialog */}
+      {isAnalyzing && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
+          <div className="relative bg-[#2E2E2E] border-4 border-[#FF99FF] rounded-2xl p-8 w-[420px] text-center shadow-2xl">
+            <Image
+              src="/assets/cats/3.png"
+              alt="Analyzing cat"
+              width={120}
+              height={120}
+              className="mx-auto -mt-24 mb-4 rotate-6"
+              priority
+            />
+            <h3 className="text-[#D79DFC] font-fjalla-one text-2xl mb-3">
+              Analyzing your profile for safety concerns...
+            </h3>
+            <div className="w-8 h-8 border-4 border-[#D79DFC] border-t-transparent rounded-full mx-auto animate-spin"></div>
           </div>
         </div>
       )}

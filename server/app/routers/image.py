@@ -9,7 +9,8 @@ from app.services.gvision_folium_service import load_credentials, prepare_image
 from app.services.gemini_agent import GeminiAgent
 
 import os, io
-
+import base64
+import json
 from pydantic import BaseModel
 import requests
 
@@ -57,18 +58,22 @@ async def analyze_image(
     body: UserIdRequest,
     current_user: UserData = Depends(get_current_user),
 ):
-    """Aggregate Google Vision, Gemini AI, and metadata analysis for the given user’s profile photo."""
+    """Aggregate Google Vision, Gemini AI, and metadata analysis for the given user's profile photo."""
 
     # 1. Fetch raw image bytes from Supabase storage
     photo_bytes = fetch_photo_bytes(body.userid)
 
-    # 2. Build Vision client from service-account JSON path in env
-    cred_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
-    if not cred_path or not os.path.exists(cred_path):
+    # 2. Build Vision client from base64 encoded credentials in env
+    credentials_base64 = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+    if not credentials_base64:
         raise HTTPException(status_code=500, detail="Google Vision credentials not configured")
 
-    with open(cred_path, "r") as f:
-        client = load_credentials(f)
+    try:
+        # Decode base64 credentials and create client
+        credentials_json = json.loads(base64.b64decode(credentials_base64))
+        client = load_credentials(io.BytesIO(json.dumps(credentials_json).encode()))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to decode credentials: {str(e)}")
 
     # 3. Prepare image for Vision API
     image_bytes, vision_image, pil_image = prepare_image(io.BytesIO(photo_bytes))

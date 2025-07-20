@@ -197,10 +197,10 @@ export default function PfpRightSide() {
 
     // Always show PII dialog (hard-coded for now)
     const samplePii = {
-      score: 0,
-      level: "MINIMAL",
+      score: 9,
+      level: "HIGH",
       summary:
-        "This text describes an analysis of image-based vulnerabilities. The key information includes a list of image URLs from various domains, a vague vulnerability description, and an AI summary. The analysis concludes there's minimal PII risk.",
+        "THIS IMAGE IS HIGHLY SENSITIVE. DO NOT SHARE THIS IMAGE WITH ANYONE AS THIS IS YOUR LINKEDN ACCOUNT AND STALKERS CAN USE THIS TO GET YOUR PERSONAL INFORMATION",
     } as const;
 
     setPiiAnalysis(samplePii);

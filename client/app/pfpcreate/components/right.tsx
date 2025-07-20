@@ -74,6 +74,10 @@ export default function PfpRightSide() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [showDialog, setShowDialog] = useState(false);
 
+  // PII Analysis alert dialog state
+  const [showPiiDialog, setShowPiiDialog] = useState(false);
+  const [piiAnalysis, setPiiAnalysis] = useState<{ score: number; level: string; summary: string } | null>(null);
+
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file || !supabase) return;
@@ -179,10 +183,28 @@ export default function PfpRightSide() {
       error: userErr,
     } = await supabase.auth.getUser();
 
+    // Fetch access token for auth header
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
+    // Skipping backend analysis call for now – will integrate later
+
     if (userErr || !user) {
       console.error("No authenticated user found");
       return;
     }
+
+    // Always show PII dialog (hard-coded for now)
+    const samplePii = {
+      score: 9,
+      level: "HIGH",
+      summary:
+        "THIS IMAGE IS HIGHLY SENSITIVE. DO NOT SHARE THIS IMAGE WITH ANYONE AS THIS IS YOUR LINKEDN ACCOUNT AND STALKERS CAN USE THIS TO GET YOUR PERSONAL INFORMATION",
+    } as const;
+
+    setPiiAnalysis(samplePii);
+    setShowPiiDialog(true);
 
     const { error } = await supabase.from("profiles").upsert({
       id: user.id,
@@ -201,7 +223,6 @@ export default function PfpRightSide() {
       console.error("Error saving profile:", error);
     } else {
       console.log("Profile saved / updated");
-      router.push("/dashboard");
     }
   };
 
@@ -546,6 +567,45 @@ export default function PfpRightSide() {
             <p className="text-red-500 text-lg leading-relaxed">
               Please complete all required fields, upload a photo and select at least one interest.
             </p>
+          </div>
+        </div>
+      )}
+
+      {/* PII Risk Alert dialog */}
+      {showPiiDialog && piiAnalysis && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
+          <div className="relative bg-[#2E2E2E] border-4 border-[#FF99FF] rounded-2xl p-8 w-[460px] text-center shadow-2xl">
+            <button
+              aria-label="Close dialog"
+              className="absolute top-2 right-3 text-white text-3xl leading-none hover:text-[#D79DFC]"
+              onClick={() => setShowPiiDialog(false)}
+            >
+              &times;
+            </button>
+            <Image
+              src="/assets/cats/5.png"
+              alt="Alert cat"
+              width={120}
+              height={120}
+              className="mx-auto -mt-24 mb-4 rotate-6"
+              priority
+            />
+            <h3 className="text-[#D79DFC] font-fjalla-one text-2xl mb-3">Privacy Risk Alert!</h3>
+            <p className="text-red-500 text-xl mb-2">
+              PII Risk Level: {piiAnalysis.level} (Score: {piiAnalysis.score})
+            </p>
+            <p className="text-white text-lg leading-relaxed mb-4">{piiAnalysis.summary}</p>
+
+            <button
+              type="button"
+              onClick={() => {
+                setShowPiiDialog(false);
+                router.push("/dashboard");
+              }}
+              className="mt-2 px-6 py-3 bg-[#D79DFC] text-black font-fjalla-one text-xl rounded-lg hover:bg-[#c26dfc] transition-colors"
+            >
+              Still want to continue to Dashboard
+            </button>
           </div>
         </div>
       )}

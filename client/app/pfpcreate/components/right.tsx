@@ -77,6 +77,7 @@ export default function PfpRightSide() {
   // PII Analysis alert dialog state
   const [showPiiDialog, setShowPiiDialog] = useState(false);
   const [piiAnalysis, setPiiAnalysis] = useState<{ score: number; level: string; summary: string } | null>(null);
+  const [analysisSummary, setAnalysisSummary] = useState<string | null>(null);
 
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -195,16 +196,35 @@ export default function PfpRightSide() {
       return;
     }
 
-    // Always show PII dialog (hard-coded for now)
-    const samplePii = {
-      score: 9,
-      level: "HIGH",
-      summary:
-        "THIS IMAGE IS HIGHLY SENSITIVE. DO NOT SHARE THIS IMAGE WITH ANYONE AS THIS IS YOUR LINKEDN ACCOUNT AND STALKERS CAN USE THIS TO GET YOUR PERSONAL INFORMATION",
-    } as const;
+    // Call backend for PII analysis of the uploaded image and show the result
+    try {
+      const backendBase = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8000";
+      const response = await fetch(`${backendBase}/api/image/analyze-image`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${session?.access_token ?? ""}`,
+        },
+        body: JSON.stringify({ userid: user.id }),
+      });
 
-    setPiiAnalysis(samplePii);
-    setShowPiiDialog(true);
+      if (!response.ok) {
+        console.error("Backend analysis error:", await response.text());
+      } else {
+        const data = await response.json();
+        console.log("PII analysis response:", data);
+
+        setAnalysisSummary(data?.summary ?? null);
+
+        const piiSummary = data?.analysis?.pii_risk_summary;
+        if (piiSummary) {
+          setPiiAnalysis(piiSummary);
+        }
+        setShowPiiDialog(true);
+      }
+    } catch (err) {
+      console.error("Failed to fetch PII analysis:", err);
+    }
 
     const { error } = await supabase.from("profiles").upsert({
       id: user.id,
@@ -298,7 +318,7 @@ export default function PfpRightSide() {
       {/* Prompt placed below the upload container */}
       {uploadedImage && (
         <div
-          className="mt-4 self-center"
+          className="mt-4 mx-auto"
           style={{ width: "500px" }}
         >
           <button
@@ -574,7 +594,7 @@ export default function PfpRightSide() {
       {/* PII Risk Alert dialog */}
       {showPiiDialog && piiAnalysis && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-          <div className="relative bg-[#2E2E2E] border-4 border-[#FF99FF] rounded-2xl p-8 w-[460px] text-center shadow-2xl">
+          <div className="relative bg-[#2E2E2E] border-4 border-[red] rounded-2xl p-8 w-[460px] text-center shadow-2xl">
             <button
               aria-label="Close dialog"
               className="absolute top-2 right-3 text-white text-3xl leading-none hover:text-[#D79DFC]"
@@ -591,10 +611,8 @@ export default function PfpRightSide() {
               priority
             />
             <h3 className="text-[#D79DFC] font-fjalla-one text-2xl mb-3">Privacy Risk Alert!</h3>
-            <p className="text-red-500 text-xl mb-2">
-              PII Risk Level: {piiAnalysis.level} (Score: {piiAnalysis.score})
-            </p>
-            <p className="text-white text-lg leading-relaxed mb-4">{piiAnalysis.summary}</p>
+            
+            <p className="text-white text-lg leading-relaxed mb-4">{analysisSummary}</p>
 
             <button
               type="button"

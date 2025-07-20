@@ -1,0 +1,121 @@
+2025-07-18 18:12:19,995 ERROR app.util.auth: SUPABASE_JWT_SECRET environment variable is not set
+2025-07-18 18:12:38,020 ERROR app.util.auth: SUPABASE_JWT_SECRET environment variable is not set
+2025-07-18 18:12:49,386 ERROR app.util.auth: SUPABASE_JWT_SECRET environment variable is not set
+2025-07-18 18:13:29,266 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 18:14:54,898 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 18:16:41,551 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 18:17:58,176 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 18:19:59,260 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 18:21:10,701 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 18:21:40,402 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 18:21:55,367 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 18:22:58,586 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 18:23:03,873 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 18:24:02,818 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 18:24:06,566 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 18:24:21,416 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 18:24:32,205 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 18:24:42,417 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 18:24:52,181 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 18:24:55,378 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 18:25:43,929 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 18:26:17,908 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 18:26:23,409 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 18:26:31,489 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 18:26:55,119 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 18:30:18,359 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 18:30:29,531 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 18:30:34,592 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 18:30:50,531 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 18:31:00,792 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 18:31:49,813 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 18:32:09,488 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 18:32:16,804 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 18:33:21,557 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 18:33:31,363 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 18:33:46,913 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 18:33:54,795 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 18:34:04,681 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 20:58:20,619 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 23:39:36,465 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 23:41:20,266 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 23:44:49,822 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 23:45:25,285 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 23:45:30,261 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 23:47:21,066 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 23:49:19,729 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 23:50:16,681 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 23:52:29,895 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 23:55:23,054 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-18 23:55:48,203 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-19 00:24:46,901 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-19 12:09:58,528 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-19 12:16:51,284 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-19 12:28:23,404 DEBUG app.util.auth: get_current_user called with credentials
+2025-07-19 12:28:23,438 DEBUG app.util.auth: Authorization scheme: Bearer
+2025-07-19 12:28:23,438 DEBUG app.util.auth: Token received: eyJhbGciOi...
+2025-07-19 12:28:23,440 DEBUG app.util.auth: Attempting to decode access token
+2025-07-19 12:28:23,440 DEBUG app.util.auth: Attempting to decode token: eyJhbGciOi...
+2025-07-19 12:28:23,442 DEBUG app.util.auth: Using JWT secret: TA5bR1Tcrv...
+2025-07-19 12:28:23,446 DEBUG app.util.auth: Current server time: 1752888503.444016
+2025-07-19 12:28:23,459 DEBUG app.util.auth: Unverified payload: {'iss': 'https://dxpknzqffplmcbjdkwtk.supabase.co/auth/v1', 'sub': '649a43c4-acda-4bcf-adda-47616fc219b2', 'aud': 'authenticated', 'exp': 1752911801, 'iat': 1752908201, 'email': 'mehrinshamim4869@gmail.com', 'phone': '', 'app_metadata': {'provider': 'google', 'providers': ['google']}, 'user_metadata': {'avatar_url': 'https://lh3.googleusercontent.com/a/ACg8ocL8UXCxcTqV4BIaE36B1JIUJAucVObY37utrMEwNqJ6ANJxwg=s96-c', 'email': 'mehrinshamim4869@gmail.com', 'email_verified': True, 'full_name': 'Mehrin Fathima Shamim', 'iss': 'https://accounts.google.com', 'name': 'Mehrin Fathima Shamim', 'phone_verified': False, 'picture': 'https://lh3.googleusercontent.com/a/ACg8ocL8UXCxcTqV4BIaE36B1JIUJAucVObY37utrMEwNqJ6ANJxwg=s96-c', 'provider_id': '116604364122343720992', 'sub': '116604364122343720992'}, 'role': 'authenticated', 'aal': 'aal1', 'amr': [{'method': 'oauth', 'timestamp': 1752908201}], 'session_id': 'd4dfd834-dfbf-4cbb-ae5a-6b5f88ea809c', 'is_anonymous': False}
+2025-07-19 12:28:23,459 DEBUG app.util.auth: Token iat: 1752908201, Time difference: -19697.555984020233 seconds
+2025-07-19 12:28:23,478 DEBUG app.util.auth: Token decoded successfully. Payload: {'iss': 'https://dxpknzqffplmcbjdkwtk.supabase.co/auth/v1', 'sub': '649a43c4-acda-4bcf-adda-47616fc219b2', 'aud': 'authenticated', 'exp': 1752911801, 'iat': 1752908201, 'email': 'mehrinshamim4869@gmail.com', 'phone': '', 'app_metadata': {'provider': 'google', 'providers': ['google']}, 'user_metadata': {'avatar_url': 'https://lh3.googleusercontent.com/a/ACg8ocL8UXCxcTqV4BIaE36B1JIUJAucVObY37utrMEwNqJ6ANJxwg=s96-c', 'email': 'mehrinshamim4869@gmail.com', 'email_verified': True, 'full_name': 'Mehrin Fathima Shamim', 'iss': 'https://accounts.google.com', 'name': 'Mehrin Fathima Shamim', 'phone_verified': False, 'picture': 'https://lh3.googleusercontent.com/a/ACg8ocL8UXCxcTqV4BIaE36B1JIUJAucVObY37utrMEwNqJ6ANJxwg=s96-c', 'provider_id': '116604364122343720992', 'sub': '116604364122343720992'}, 'role': 'authenticated', 'aal': 'aal1', 'amr': [{'method': 'oauth', 'timestamp': 1752908201}], 'session_id': 'd4dfd834-dfbf-4cbb-ae5a-6b5f88ea809c', 'is_anonymous': False}
+2025-07-19 12:28:23,478 DEBUG app.util.auth: Token decoded successfully. Extracting user data from payload: {'iss': 'https://dxpknzqffplmcbjdkwtk.supabase.co/auth/v1', 'sub': '649a43c4-acda-4bcf-adda-47616fc219b2', 'aud': 'authenticated', 'exp': 1752911801, 'iat': 1752908201, 'email': 'mehrinshamim4869@gmail.com', 'phone': '', 'app_metadata': {'provider': 'google', 'providers': ['google']}, 'user_metadata': {'avatar_url': 'https://lh3.googleusercontent.com/a/ACg8ocL8UXCxcTqV4BIaE36B1JIUJAucVObY37utrMEwNqJ6ANJxwg=s96-c', 'email': 'mehrinshamim4869@gmail.com', 'email_verified': True, 'full_name': 'Mehrin Fathima Shamim', 'iss': 'https://accounts.google.com', 'name': 'Mehrin Fathima Shamim', 'phone_verified': False, 'picture': 'https://lh3.googleusercontent.com/a/ACg8ocL8UXCxcTqV4BIaE36B1JIUJAucVObY37utrMEwNqJ6ANJxwg=s96-c', 'provider_id': '116604364122343720992', 'sub': '116604364122343720992'}, 'role': 'authenticated', 'aal': 'aal1', 'amr': [{'method': 'oauth', 'timestamp': 1752908201}], 'session_id': 'd4dfd834-dfbf-4cbb-ae5a-6b5f88ea809c', 'is_anonymous': False}
+2025-07-19 12:28:23,491 DEBUG app.util.auth: User data extracted: id=649a43c4-acda-4bcf-adda-47616fc219b2, email=mehrinshamim4869@gmail.com
+2025-07-19 12:28:59,903 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-19 12:29:13,535 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-19 12:29:21,051 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-19 12:33:00,370 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-19 12:36:09,925 DEBUG app.util.auth: AuthService initialized successfully
+<<<<<<< HEAD
+2025-07-20 05:10:40,724 DEBUG app.util.auth: AuthService initialized successfully
+=======
+2025-07-20 04:18:13,037 ERROR app.util.auth: SUPABASE_JWT_SECRET environment variable is not set
+2025-07-20 04:21:07,041 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-20 04:26:25,817 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-20 04:31:30,296 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-20 04:31:43,370 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-20 04:36:28,361 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-20 04:37:18,973 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-20 04:40:29,074 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-20 04:40:56,642 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-20 04:41:29,554 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-20 04:42:15,688 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-20 04:43:12,700 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-20 04:45:27,139 DEBUG app.util.auth: get_current_user called with credentials
+2025-07-20 04:45:27,140 DEBUG app.util.auth: Authorization scheme: Bearer
+2025-07-20 04:45:27,140 DEBUG app.util.auth: Token received: eyJhbGciOi...
+2025-07-20 04:45:27,140 DEBUG app.util.auth: Attempting to decode access token
+2025-07-20 04:45:27,140 DEBUG app.util.auth: Attempting to decode token: eyJhbGciOi...
+2025-07-20 04:45:27,140 DEBUG app.util.auth: Using JWT secret: TA5bR1Tcrv...
+2025-07-20 04:45:27,140 DEBUG app.util.auth: Current server time: 1752947127.140813
+2025-07-20 04:45:27,140 DEBUG app.util.auth: Unverified payload: {'iss': 'https://dxpknzqffplmcbjdkwtk.supabase.co/auth/v1', 'sub': 'b0311e8b-7b1e-4962-8c4e-6079af4adc8a', 'aud': 'authenticated', 'exp': 1752970445, 'iat': 1752966845, 'email': 'diyaj2122@gmail.com', 'phone': '', 'app_metadata': {'provider': 'google', 'providers': ['google']}, 'user_metadata': {'avatar_url': 'https://lh3.googleusercontent.com/a/ACg8ocLy7jtdraO_IcOW9xaPYSZ44MWV9u_DgF1K7PAkz0OHW86V-SRE=s96-c', 'email': 'diyaj2122@gmail.com', 'email_verified': True, 'full_name': 'Diya Jojo', 'iss': 'https://accounts.google.com', 'name': 'Diya Jojo', 'phone_verified': False, 'picture': 'https://lh3.googleusercontent.com/a/ACg8ocLy7jtdraO_IcOW9xaPYSZ44MWV9u_DgF1K7PAkz0OHW86V-SRE=s96-c', 'provider_id': '107841480984337297625', 'sub': '107841480984337297625'}, 'role': 'authenticated', 'aal': 'aal1', 'amr': [{'method': 'oauth', 'timestamp': 1752956144}], 'session_id': 'b99a5a89-51fa-4461-8d22-0f9c7e17654d', 'is_anonymous': False}
+2025-07-20 04:45:27,141 DEBUG app.util.auth: Token iat: 1752966845, Time difference: -19717.85918688774 seconds
+2025-07-20 04:45:27,141 ERROR app.util.auth: Token validation error: Signature verification failed
+2025-07-20 04:45:27,141 ERROR app.util.auth: Token details - Length: 1293, Format: eyJhbGciOi...
+2025-07-20 04:45:27,141 ERROR app.util.auth: Error in get_current_user: 401: Invalid token: Signature verification failed
+2025-07-20 04:46:22,023 DEBUG app.util.auth: get_current_user called with credentials
+2025-07-20 04:46:22,023 DEBUG app.util.auth: Authorization scheme: Bearer
+2025-07-20 04:46:22,023 DEBUG app.util.auth: Token received: eyJhbGciOi...
+2025-07-20 04:46:22,023 DEBUG app.util.auth: Attempting to decode access token
+2025-07-20 04:46:22,023 DEBUG app.util.auth: Attempting to decode token: eyJhbGciOi...
+2025-07-20 04:46:22,023 DEBUG app.util.auth: Using JWT secret: TA5bR1Tcrv...
+2025-07-20 04:46:22,023 DEBUG app.util.auth: Current server time: 1752947182.023552
+2025-07-20 04:46:22,023 DEBUG app.util.auth: Unverified payload: {'iss': 'https://dxpknzqffplmcbjdkwtk.supabase.co/auth/v1', 'sub': 'b0311e8b-7b1e-4962-8c4e-6079af4adc8a', 'aud': 'authenticated', 'exp': 1752970560, 'iat': 1752966960, 'email': 'diyaj2122@gmail.com', 'phone': '', 'app_metadata': {'provider': 'google', 'providers': ['google']}, 'user_metadata': {'avatar_url': 'https://lh3.googleusercontent.com/a/ACg8ocLy7jtdraO_IcOW9xaPYSZ44MWV9u_DgF1K7PAkz0OHW86V-SRE=s96-c', 'email': 'diyaj2122@gmail.com', 'email_verified': True, 'full_name': 'Diya Jojo', 'iss': 'https://accounts.google.com', 'name': 'Diya Jojo', 'phone_verified': False, 'picture': 'https://lh3.googleusercontent.com/a/ACg8ocLy7jtdraO_IcOW9xaPYSZ44MWV9u_DgF1K7PAkz0OHW86V-SRE=s96-c', 'provider_id': '107841480984337297625', 'sub': '107841480984337297625'}, 'role': 'authenticated', 'aal': 'aal1', 'amr': [{'method': 'oauth', 'timestamp': 1752966960}], 'session_id': 'f12df820-d46c-4493-9f55-d3fd234ca389', 'is_anonymous': False}
+2025-07-20 04:46:22,023 DEBUG app.util.auth: Token iat: 1752966960, Time difference: -19777.976448059082 seconds
+2025-07-20 04:46:22,023 DEBUG app.util.auth: Token decoded successfully. Payload: {'iss': 'https://dxpknzqffplmcbjdkwtk.supabase.co/auth/v1', 'sub': 'b0311e8b-7b1e-4962-8c4e-6079af4adc8a', 'aud': 'authenticated', 'exp': 1752970560, 'iat': 1752966960, 'email': 'diyaj2122@gmail.com', 'phone': '', 'app_metadata': {'provider': 'google', 'providers': ['google']}, 'user_metadata': {'avatar_url': 'https://lh3.googleusercontent.com/a/ACg8ocLy7jtdraO_IcOW9xaPYSZ44MWV9u_DgF1K7PAkz0OHW86V-SRE=s96-c', 'email': 'diyaj2122@gmail.com', 'email_verified': True, 'full_name': 'Diya Jojo', 'iss': 'https://accounts.google.com', 'name': 'Diya Jojo', 'phone_verified': False, 'picture': 'https://lh3.googleusercontent.com/a/ACg8ocLy7jtdraO_IcOW9xaPYSZ44MWV9u_DgF1K7PAkz0OHW86V-SRE=s96-c', 'provider_id': '107841480984337297625', 'sub': '107841480984337297625'}, 'role': 'authenticated', 'aal': 'aal1', 'amr': [{'method': 'oauth', 'timestamp': 1752966960}], 'session_id': 'f12df820-d46c-4493-9f55-d3fd234ca389', 'is_anonymous': False}
+2025-07-20 04:46:22,023 DEBUG app.util.auth: Token decoded successfully. Extracting user data from payload: {'iss': 'https://dxpknzqffplmcbjdkwtk.supabase.co/auth/v1', 'sub': 'b0311e8b-7b1e-4962-8c4e-6079af4adc8a', 'aud': 'authenticated', 'exp': 1752970560, 'iat': 1752966960, 'email': 'diyaj2122@gmail.com', 'phone': '', 'app_metadata': {'provider': 'google', 'providers': ['google']}, 'user_metadata': {'avatar_url': 'https://lh3.googleusercontent.com/a/ACg8ocLy7jtdraO_IcOW9xaPYSZ44MWV9u_DgF1K7PAkz0OHW86V-SRE=s96-c', 'email': 'diyaj2122@gmail.com', 'email_verified': True, 'full_name': 'Diya Jojo', 'iss': 'https://accounts.google.com', 'name': 'Diya Jojo', 'phone_verified': False, 'picture': 'https://lh3.googleusercontent.com/a/ACg8ocLy7jtdraO_IcOW9xaPYSZ44MWV9u_DgF1K7PAkz0OHW86V-SRE=s96-c', 'provider_id': '107841480984337297625', 'sub': '107841480984337297625'}, 'role': 'authenticated', 'aal': 'aal1', 'amr': [{'method': 'oauth', 'timestamp': 1752966960}], 'session_id': 'f12df820-d46c-4493-9f55-d3fd234ca389', 'is_anonymous': False}
+2025-07-20 04:46:22,023 DEBUG app.util.auth: User data extracted: id=b0311e8b-7b1e-4962-8c4e-6079af4adc8a, email=diyaj2122@gmail.com
+>>>>>>> 7af1a686f9e0621c3c6596e20584dc97a2ac9d9a
+2025-07-20 05:15:41,090 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-20 05:17:47,322 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-20 05:17:53,314 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-20 05:18:07,309 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-20 05:19:46,438 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-20 05:29:26,577 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-20 05:30:55,988 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-20 05:34:18,131 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-20 05:34:22,811 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-20 05:34:36,605 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-20 05:37:14,476 DEBUG app.util.auth: AuthService initialized successfully

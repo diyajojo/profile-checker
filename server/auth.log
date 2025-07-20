@@ -68,6 +68,9 @@
 2025-07-19 12:29:21,051 DEBUG app.util.auth: AuthService initialized successfully
 2025-07-19 12:33:00,370 DEBUG app.util.auth: AuthService initialized successfully
 2025-07-19 12:36:09,925 DEBUG app.util.auth: AuthService initialized successfully
+<<<<<<< HEAD
+2025-07-20 05:10:40,724 DEBUG app.util.auth: AuthService initialized successfully
+=======
 2025-07-20 04:18:13,037 ERROR app.util.auth: SUPABASE_JWT_SECRET environment variable is not set
 2025-07-20 04:21:07,041 DEBUG app.util.auth: AuthService initialized successfully
 2025-07-20 04:26:25,817 DEBUG app.util.auth: AuthService initialized successfully
@@ -104,3 +107,15 @@
 2025-07-20 04:46:22,023 DEBUG app.util.auth: Token decoded successfully. Payload: {'iss': 'https://dxpknzqffplmcbjdkwtk.supabase.co/auth/v1', 'sub': 'b0311e8b-7b1e-4962-8c4e-6079af4adc8a', 'aud': 'authenticated', 'exp': 1752970560, 'iat': 1752966960, 'email': 'diyaj2122@gmail.com', 'phone': '', 'app_metadata': {'provider': 'google', 'providers': ['google']}, 'user_metadata': {'avatar_url': 'https://lh3.googleusercontent.com/a/ACg8ocLy7jtdraO_IcOW9xaPYSZ44MWV9u_DgF1K7PAkz0OHW86V-SRE=s96-c', 'email': 'diyaj2122@gmail.com', 'email_verified': True, 'full_name': 'Diya Jojo', 'iss': 'https://accounts.google.com', 'name': 'Diya Jojo', 'phone_verified': False, 'picture': 'https://lh3.googleusercontent.com/a/ACg8ocLy7jtdraO_IcOW9xaPYSZ44MWV9u_DgF1K7PAkz0OHW86V-SRE=s96-c', 'provider_id': '107841480984337297625', 'sub': '107841480984337297625'}, 'role': 'authenticated', 'aal': 'aal1', 'amr': [{'method': 'oauth', 'timestamp': 1752966960}], 'session_id': 'f12df820-d46c-4493-9f55-d3fd234ca389', 'is_anonymous': False}
 2025-07-20 04:46:22,023 DEBUG app.util.auth: Token decoded successfully. Extracting user data from payload: {'iss': 'https://dxpknzqffplmcbjdkwtk.supabase.co/auth/v1', 'sub': 'b0311e8b-7b1e-4962-8c4e-6079af4adc8a', 'aud': 'authenticated', 'exp': 1752970560, 'iat': 1752966960, 'email': 'diyaj2122@gmail.com', 'phone': '', 'app_metadata': {'provider': 'google', 'providers': ['google']}, 'user_metadata': {'avatar_url': 'https://lh3.googleusercontent.com/a/ACg8ocLy7jtdraO_IcOW9xaPYSZ44MWV9u_DgF1K7PAkz0OHW86V-SRE=s96-c', 'email': 'diyaj2122@gmail.com', 'email_verified': True, 'full_name': 'Diya Jojo', 'iss': 'https://accounts.google.com', 'name': 'Diya Jojo', 'phone_verified': False, 'picture': 'https://lh3.googleusercontent.com/a/ACg8ocLy7jtdraO_IcOW9xaPYSZ44MWV9u_DgF1K7PAkz0OHW86V-SRE=s96-c', 'provider_id': '107841480984337297625', 'sub': '107841480984337297625'}, 'role': 'authenticated', 'aal': 'aal1', 'amr': [{'method': 'oauth', 'timestamp': 1752966960}], 'session_id': 'f12df820-d46c-4493-9f55-d3fd234ca389', 'is_anonymous': False}
 2025-07-20 04:46:22,023 DEBUG app.util.auth: User data extracted: id=b0311e8b-7b1e-4962-8c4e-6079af4adc8a, email=diyaj2122@gmail.com
+>>>>>>> 7af1a686f9e0621c3c6596e20584dc97a2ac9d9a
+2025-07-20 05:15:41,090 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-20 05:17:47,322 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-20 05:17:53,314 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-20 05:18:07,309 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-20 05:19:46,438 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-20 05:29:26,577 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-20 05:30:55,988 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-20 05:34:18,131 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-20 05:34:22,811 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-20 05:34:36,605 DEBUG app.util.auth: AuthService initialized successfully
+2025-07-20 05:37:14,476 DEBUG app.util.auth: AuthService initialized successfully

@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { supabase } from "@/app/utils/supabase";
 import LeftSide from "./components/left";
 import RightSide from "./components/right";
+import MascotDialog from "@/app/components/mascot/MascotDialog";
 
 function PfpCreateContent() {
   const router = useRouter();
@@ -56,8 +57,16 @@ function PfpCreateContent() {
 
   if (checking) {
     return (
-      <div className="w-full h-screen flex items-center justify-center text-white bg-black">
-        Loading...
+      <div className="flex w-full h-screen">
+        <LeftSide />
+        <div className="flex-1 bg-black flex items-center justify-center">
+          <MascotDialog
+            open
+            imageSrc="/assets/cats/2.png"
+            title="Preparing your profile..."
+            showSpinner
+          />
+        </div>
       </div>
     );
   }
@@ -76,8 +85,16 @@ function PfpCreateContent() {
 export default function PfpCreate() {
   return (
     <Suspense fallback={
-      <div className="w-full h-screen flex items-center justify-center text-white bg-black">
-        Loading...
+      <div className="flex w-full h-screen">
+        <LeftSide />
+        <div className="flex-1 bg-black flex items-center justify-center">
+          <MascotDialog
+            open
+            imageSrc="/assets/cats/2.png"
+            title="Loading..."
+            showSpinner
+          />
+        </div>
       </div>
     }>
       <PfpCreateContent />

@@ -79,9 +79,7 @@ export default function MatchesPage() {
     <div className="flex-1 p-12 text-white font-fjalla-one flex flex-col items-center">
       <h2 className="text-3xl mb-8 text-[#D79DFC]">Your Matches</h2>
 
-      {loading ? (
-        <p>Loading...</p>
-      ) : matches.length === 0 ? (
+      {loading ? null : matches.length === 0 ? (
         <p>No matches yet. Start liking people!</p>
       ) : (
         <div className="grid grid-cols-1 gap-6 w-full max-w-md">

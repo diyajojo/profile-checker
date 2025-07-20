@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+// Loading mascot removed for users component
 import { supabase } from "@/app/utils/supabase";
 
 const Users: React.FC = () => {
@@ -170,9 +171,7 @@ const Users: React.FC = () => {
       </svg>
       <h2 className="text-3xl mb-8 text-[#D79DFC] font-fjalla-one">Find Your Perfect Match</h2>
 
-      {loading ? (
-        <p className="text-white font-league-spartan">Loading...</p>
-      ) : currentProfile ? (
+      {loading ? null : currentProfile ? (
         <>
           {/* Card */}
           <div className="w-[28rem] bg-white rounded-3xl shadow-2xl overflow-hidden">

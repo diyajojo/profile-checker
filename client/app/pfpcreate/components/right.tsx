@@ -2,6 +2,8 @@
 import { useState, useRef, useEffect } from "react";
 import { supabase } from "@/app/utils/supabase";
 import Image from "next/image";
+import MascotDialog from "@/app/components/mascot/MascotDialog";
+import LoadingMascot from "@/app/components/mascot/LoadingMascot"; // still used in other small places if needed
 import { useRouter } from "next/navigation";
 
 export default function PfpRightSide() {
@@ -11,6 +13,15 @@ export default function PfpRightSide() {
   const [isUploading, setIsUploading] = useState(false);
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Helper to trigger file picker reliably
+  const openFilePicker = () => {
+    if (fileInputRef.current) {
+      // Allow selecting the same file again by resetting the value
+      fileInputRef.current.value = "";
+      fileInputRef.current.click();
+    }
+  };
 
   // form field states
   const [fullName, setFullName] = useState("");
@@ -78,6 +89,8 @@ export default function PfpRightSide() {
   const [showPiiDialog, setShowPiiDialog] = useState(false);
   const [piiAnalysis, setPiiAnalysis] = useState<{ score: number; level: string; summary: string } | null>(null);
   const [analysisSummary, setAnalysisSummary] = useState<string | null>(null);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [isRedirecting, setIsRedirecting] = useState(false);
 
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -96,23 +109,16 @@ export default function PfpRightSide() {
         return;
       }
 
-      // Create a unique filename using user.id
+        // Use unique filename per upload to allow unlimited re-uploads
       const fileExt = file.name.split('.').pop();
-      const fileName = `${user.id}.${fileExt}`;
-
-      // First, try to delete existing file if it exists
-      try {
-        await supabase.storage.from('photos').remove([fileName]);
-      } catch (error) {
-        // File doesn't exist, which is fine
-      }
+      const fileName = `${user.id}-${Date.now()}.${fileExt}`;
 
       // Upload to Supabase storage bucket named 'photos'
       const { data, error } = await supabase.storage
         .from('photos')
         .upload(fileName, file, {
           cacheControl: '3600',
-          upsert: false // Don't use upsert, we'll handle it manually
+          upsert: false // Unique filename avoids conflicts
         });
 
       if (error) {
@@ -136,14 +142,17 @@ export default function PfpRightSide() {
       setUploadedImage(signedUrl);
       console.log('File uploaded successfully. Signed URL:', signedUrl);
 
-      // Upsert into profileurl table (insert if new, update if exists) with signed URL
+      // Replace existing entry in profileurl table (delete then insert) to avoid RLS update restrictions
       try {
-        const { error: upsertErr } = await supabase
-          .from('profileurl')
-          .upsert({ user_id: user.id, photo_url: signedUrl });
+        await supabase.from('profileurl').delete().eq('user_id', user.id);
 
-        if (upsertErr) {
-          console.error('Error updating profileurl table:', upsertErr);
+        const { error: insertErr } = await supabase.from('profileurl').insert({
+          user_id: user.id,
+          photo_url: signedUrl,
+        });
+
+        if (insertErr) {
+          console.error('Error inserting into profileurl table:', insertErr);
         }
       } catch (tblErr) {
         console.error('Unexpected error updating profileurl table:', tblErr);
@@ -155,6 +164,8 @@ export default function PfpRightSide() {
       setIsUploading(false);
     }
   };
+
+ 
 
   const handleSaveProfile = async () => {
     if (!supabase) return;
@@ -198,6 +209,8 @@ export default function PfpRightSide() {
 
     // Call backend for PII analysis of the uploaded image and show the result
     try {
+      setIsAnalyzing(true);
+      const analysisStart = Date.now();
       const backendBase = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8000";
       const response = await fetch(`${backendBase}/api/image/analyze-image`, {
         method: "POST",
@@ -220,10 +233,20 @@ export default function PfpRightSide() {
         if (piiSummary) {
           setPiiAnalysis(piiSummary);
         }
-        setShowPiiDialog(true);
+
+        // Ensure analyzing dialog shows at least 5 seconds
+        const elapsed = Date.now() - analysisStart;
+        const minDisplay = 5000;
+        const remaining = elapsed < minDisplay ? minDisplay - elapsed : 0;
+
+        setTimeout(() => {
+          setIsAnalyzing(false);
+          setShowPiiDialog(true);
+        }, remaining);
       }
     } catch (err) {
       console.error("Failed to fetch PII analysis:", err);
+      setIsAnalyzing(false);
     }
 
     const { error } = await supabase.from("profiles").upsert({
@@ -246,6 +269,14 @@ export default function PfpRightSide() {
     }
   };
 
+  // Redirect with 5-second mascot loader
+  const redirectToDashboard = () => {
+    setIsRedirecting(true);
+    setTimeout(() => {
+      router.push("/dashboard");
+    }, 5000);
+  };
+
   return (
     <div className="relative flex flex-col items-start justify-start pt-10 pl-10 bg-black h-full w-full">
       {/* Upload Photo container */}
@@ -257,7 +288,7 @@ export default function PfpRightSide() {
           boxShadow: "12px 4px 4px 0px #FBE9FF",
           backdropFilter: "blur(4px)",
         }}
-        onClick={() => fileInputRef.current?.click()}
+        onClick={openFilePicker}
       >
         {/* Background image */}
         <Image
@@ -288,13 +319,36 @@ export default function PfpRightSide() {
                 className="absolute inset-0 w-full h-full object-cover rounded-[30px] pointer-events-none"
               />
 
-              {/* Removed overlay text; prompt will be placed below container */}
+              {/* Edit/Delete buttons overlay */}
+              <div className="absolute top-3 right-3 flex gap-3">
+                {/* Edit (re-upload) */}
+                <button
+                  type="button"
+                  aria-label="Change photo"
+                  onClick={openFilePicker}
+                  className="w-10 h-10 bg-white/80 hover:bg-[#D79DFC] rounded-full flex items-center justify-center backdrop-blur-sm"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#000000"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="w-5 h-5"
+                  >
+                    <path d="M12 20h9" />
+                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z" />
+                  </svg>
+                </button>
+
+                {/* Delete button removed as requested */}
+              </div>
             </>
           ) : (
             <>
-              <span className="text-white font-fjalla-one text-3xl">
-                {isUploading ? "Uploading..." : "Upload Photo"}
-              </span>
+              <span className="text-white font-fjalla-one text-3xl">Upload Photo</span>
               <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center border border-[#FF99FF]">
                 {isUploading ? (
                   <div className="w-8 h-8 border-2 border-[#B52558] border-t-transparent rounded-full animate-spin"></div>
@@ -315,21 +369,7 @@ export default function PfpRightSide() {
         </div>
       </div>
 
-      {/* Prompt placed below the upload container */}
-      {uploadedImage && (
-        <div
-          className="mt-4 mx-auto"
-          style={{ width: "500px" }}
-        >
-          <button
-            type="button"
-            onClick={() => fileInputRef.current?.click()}
-            className="w-full rounded-[25px] border border-[#FFFBFB] bg-[#D9D9D914] text-[#D79DFC] font-fjalla-one text-2xl py-3 hover:bg-[#c26dfc]/20 transition-colors items-center justify-center"
-          >
-            Click to change photo
-          </button>
-        </div>
-      )}
+      {/* Inline change photo button removed – now provided in analyzing dialog */}
 
       {/* Top Action Bar */}
       <div className="absolute top-[73px] right-10 flex items-center gap-5">
@@ -564,7 +604,7 @@ export default function PfpRightSide() {
       {/* Validation dialog */}
       {showDialog && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-          <div className="relative bg-[#2E2E2E] border-4 border-[#FF99FF] rounded-2xl p-8 w-[420px] text-center shadow-2xl">
+          <div className="relative bg-[#2E2E2E] border-4 border-red-500 rounded-2xl p-8 w-[420px] text-center shadow-2xl">
             <button
               aria-label="Close dialog"
               className="absolute top-2 right-3 text-white text-3xl leading-none hover:text-[#D79DFC]"
@@ -583,8 +623,8 @@ export default function PfpRightSide() {
               priority
             />
 
-            <h3 className="text-red-500 font-fjalla-one text-2xl mb-3">Hold on, friend!</h3>
-            <p className="text-red-500 text-lg leading-relaxed">
+            <h3 className="text-white font-fjalla-one text-2xl mb-3">Hold on, friend!</h3>
+            <p className="text-white text-lg leading-relaxed">
               Please complete all required fields, upload a photo and select at least one interest.
             </p>
           </div>
@@ -618,15 +658,47 @@ export default function PfpRightSide() {
               type="button"
               onClick={() => {
                 setShowPiiDialog(false);
-                router.push("/dashboard");
+                redirectToDashboard();
               }}
               className="mt-2 px-6 py-3 bg-[#D79DFC] text-black font-fjalla-one text-xl rounded-lg hover:bg-[#c26dfc] transition-colors"
             >
               Still want to continue to Dashboard
             </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                setShowPiiDialog(false);
+                fileInputRef.current?.click();
+              }}
+              className="mt-4 px-6 py-3 bg-[#D79DFC] text-black font-fjalla-one text-xl rounded-lg hover:bg-[#c26dfc] transition-colors"
+            >
+              Change Profile Photo
+            </button>
           </div>
         </div>
       )}
+      {/* Analyzing dialog via mascot */}
+      <MascotDialog
+        open={isAnalyzing}
+        imageSrc="/assets/cats/3.png"
+        title="Analyzing your profile for safety concerns..."
+        showSpinner
+      />
+      {/* Uploading dialog via mascot */}
+      <MascotDialog
+        open={isUploading}
+        imageSrc="/assets/cats/2.png"
+        title="Uploading your photo..."
+        showSpinner
+      />
+      {/* Redirecting dialog via mascot */}
+      <MascotDialog
+        open={isRedirecting}
+        imageSrc="/assets/cats/6.png"
+        title="Redirecting to dashboard..."
+        showSpinner
+      />
     </div>
   );
 } 

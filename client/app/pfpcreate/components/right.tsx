@@ -604,7 +604,7 @@ export default function PfpRightSide() {
       {/* Validation dialog */}
       {showDialog && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-          <div className="relative bg-[#2E2E2E] border-4 border-red-500 rounded-2xl p-8 w-[420px] text-center shadow-2xl">
+          <div className="relative bg-[#2E2E2E] border-4 border-red-500 rounded-2xl p-8 w-[800px] h-[350px] text-center shadow-2xl">
             <button
               aria-label="Close dialog"
               className="absolute top-2 right-3 text-white text-3xl leading-none hover:text-[#D79DFC]"

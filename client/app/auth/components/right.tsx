@@ -1,5 +1,7 @@
 'use client';
 import { useState } from 'react';
+import LoadingMascot from '@/app/components/mascot/LoadingMascot';
+import MascotDialog from '@/app/components/mascot/MascotDialog';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { supabase } from '@/app/utils/supabase';
@@ -15,20 +17,24 @@ export default function RightSide() {
       return;
     }
 
+    setIsLoading(true);
 
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: {
-        redirectTo: `${window.location.origin}/pfpcreate`,
-        queryParams: { prompt: 'select_account' },
+    // Show loader for 5 seconds before redirecting
+    setTimeout(async () => {
+      if (!supabase) return;
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/pfpcreate`,
+          queryParams: { prompt: 'select_account' },
+        },
+      });
+
+      if (error) {
+        console.log('User not authenticated with Google');
+        setIsLoading(false); // hide loader on error
       }
-    });
-    
-    if(error) {
-      console.log("User not authenticated with Google");
-    } else {
-      console.log("User authenticated with Google");
-    }
+    }, 5000);
   };
 
   
@@ -48,12 +54,7 @@ export default function RightSide() {
             isLoading ? 'opacity-70 cursor-not-allowed' : 'hover:bg-gray-50'
           }`}
         >
-          {isLoading ? (
-            <>
-              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-800"></div>
-              <span>Connecting...</span>
-            </>
-          ) : (
+          {(
             <>
               {/* Google Icon */}
               <svg className="w-5 h-5" viewBox="0 0 24 24">
@@ -97,6 +98,13 @@ export default function RightSide() {
           </Link>
         </div>
       </div>
+      {/* Auth loading dialog */}
+      <MascotDialog
+        open={isLoading}
+        imageSrc="/assets/cats/1.png"
+        title="Connecting to Google..."
+        showSpinner
+      />
     </div>
   );
 } 

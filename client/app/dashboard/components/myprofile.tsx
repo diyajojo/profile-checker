@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+// Loading mascot removed for MyProfile
 import { supabase } from "@/app/utils/supabase";
 
 interface Profile {
@@ -64,7 +65,7 @@ const MyProfile: React.FC = () => {
   }, []);
 
   if (loading) {
-    return <div className="flex-1 flex items-center justify-center text-white">Loading...</div>;
+    return null; // no visible loading state
   }
 
   if (!profile) {

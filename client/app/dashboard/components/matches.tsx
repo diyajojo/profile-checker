@@ -6,29 +6,44 @@ const Matches: React.FC = () => {
   const [selected, setSelected] = useState<any | null>(null);
   const [details, setDetails] = useState<any | null>(null);
 
-  const fetchDetails = async (id: string) => {
-    if (!supabase) {
-      setDetails(null);
-      return;
-    }
+  const fetchDetails = async (matchObj: any) => {
+    setDetails({
+      full_name: matchObj.name,
+      age: matchObj.age,
+      interests: matchObj.interests,
+      work_as: matchObj.work,
+      photo_url: matchObj.photo,
+      tagline: matchObj.tagline ?? "",
+      looking_for: matchObj.looking_for ?? "",
+      family_plan: matchObj.family_plan ?? "",
+      relationship_status: matchObj.relationship_status ?? "",
+      texting_calling: matchObj.texting_calling ?? "",
+    });
 
-    const { data: profile } = await supabase
+    if (!supabase) return;
+
+    const { data: profile, error } = await supabase
       .from("profiles")
       .select(
         "full_name, age, tagline, interests, work_as, looking_for, family_plan, relationship_status, texting_calling"
       )
-      .eq("id", id)
+      .eq("id", matchObj.id)
       .single();
+
+    if (error) {
+      console.warn("[Matches] Couldn't fetch profile details", error);
+      return;
+    }
 
     const { data: urlRow } = await supabase
       .from("profileurl")
       .select("photo_url")
-      .eq("user_id", id)
+      .eq("user_id", matchObj.id)
       .single();
 
     setDetails({
       ...profile,
-      photo_url: urlRow?.photo_url,
+      photo_url: urlRow?.photo_url || matchObj.photo,
     });
   };
 
@@ -65,7 +80,7 @@ const Matches: React.FC = () => {
               <button
                 onClick={() => {
                   setSelected(m);
-                  fetchDetails(m.id);
+                  fetchDetails(m);
                 }}
                 className="px-4 py-2 bg-[#D79DFC] text-black rounded-lg hover:bg-[#c26dfc] transition-colors text-sm font-semibold"
               >

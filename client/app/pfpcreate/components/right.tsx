@@ -109,18 +109,16 @@ export default function PfpRightSide() {
         return;
       }
 
-      // Create a unique filename using user.id and timestamp to avoid duplicates
+        // Use unique filename per upload to allow unlimited re-uploads
       const fileExt = file.name.split('.').pop();
       const fileName = `${user.id}-${Date.now()}.${fileExt}`;
-
-      // No need to delete previous file; we store each upload uniquely
 
       // Upload to Supabase storage bucket named 'photos'
       const { data, error } = await supabase.storage
         .from('photos')
         .upload(fileName, file, {
           cacheControl: '3600',
-          upsert: false // New filename ensures no duplicate conflicts
+          upsert: false // Unique filename avoids conflicts
         });
 
       if (error) {

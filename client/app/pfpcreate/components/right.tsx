@@ -319,21 +319,7 @@ export default function PfpRightSide() {
         </div>
       </div>
 
-      {/* Prompt placed below the upload container */}
-      {uploadedImage && (
-        <div
-          className="mt-4 mx-auto"
-          style={{ width: "500px" }}
-        >
-          <button
-            type="button"
-            onClick={() => fileInputRef.current?.click()}
-            className="w-full rounded-[25px] border border-[#FFFBFB] bg-[#D9D9D914] text-[#D79DFC] font-fjalla-one text-2xl py-3 hover:bg-[#c26dfc]/20 transition-colors items-center justify-center"
-          >
-            Click to change photo
-          </button>
-        </div>
-      )}
+      {/* Inline change photo button removed – now provided in analyzing dialog */}
 
       {/* Top Action Bar */}
       <div className="absolute top-[73px] right-10 flex items-center gap-5">
@@ -628,6 +614,17 @@ export default function PfpRightSide() {
             >
               Still want to continue to Dashboard
             </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                setShowPiiDialog(false);
+                fileInputRef.current?.click();
+              }}
+              className="mt-4 px-6 py-3 bg-[#D79DFC] text-black font-fjalla-one text-xl rounded-lg hover:bg-[#c26dfc] transition-colors"
+            >
+              Change Profile Photo
+            </button>
           </div>
         </div>
       )}
@@ -647,6 +644,7 @@ export default function PfpRightSide() {
               Analyzing your profile for safety concerns...
             </h3>
             <div className="w-8 h-8 border-4 border-[#D79DFC] border-t-transparent rounded-full mx-auto animate-spin"></div>
+
           </div>
         </div>
       )}

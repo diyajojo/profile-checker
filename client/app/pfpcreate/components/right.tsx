@@ -157,6 +157,35 @@ export default function PfpRightSide() {
     }
   };
 
+  // Delete profile photo and allow re-upload
+  const handleDeletePhoto = async () => {
+    if (!supabase || !uploadedImage) return;
+
+    try {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user) return;
+
+      // Attempt to derive file extension from existing URL (before any query params)
+      const urlWithoutQuery = uploadedImage.split("?")[0];
+      const fileExt = urlWithoutQuery.split(".").pop() || "jpg";
+      const fileName = `${user.id}.${fileExt}`;
+
+      // Remove from storage bucket
+      await supabase.storage.from("photos").remove([fileName]);
+
+      // Remove DB reference
+      await supabase.from("profileurl").delete().eq("user_id", user.id);
+
+      // Clear local state so user can upload again
+      setUploadedImage(null);
+    } catch (error) {
+      console.error("Failed to delete profile photo:", error);
+    }
+  };
+
   const handleSaveProfile = async () => {
     if (!supabase) return;
 
@@ -292,7 +321,55 @@ export default function PfpRightSide() {
                 className="absolute inset-0 w-full h-full object-cover rounded-[30px] pointer-events-none"
               />
 
-              {/* Removed overlay text; prompt will be placed below container */}
+              {/* Edit/Delete buttons overlay */}
+              <div className="absolute top-3 right-3 flex gap-3">
+                {/* Edit (re-upload) */}
+                <button
+                  type="button"
+                  aria-label="Change photo"
+                  onClick={() => fileInputRef.current?.click()}
+                  className="w-10 h-10 bg-white/80 hover:bg-[#D79DFC] rounded-full flex items-center justify-center backdrop-blur-sm"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#000000"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="w-5 h-5"
+                  >
+                    <path d="M12 20h9" />
+                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z" />
+                  </svg>
+                </button>
+
+                {/* Delete */}
+                <button
+                  type="button"
+                  aria-label="Delete photo"
+                  onClick={handleDeletePhoto}
+                  className="w-10 h-10 bg-white/80 hover:bg-[#ff4d4d] rounded-full flex items-center justify-center backdrop-blur-sm"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#B52558"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="w-5 h-5"
+                  >
+                    <polyline points="3 6 5 6 21 6" />
+                    <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+                    <path d="M10 11v6" />
+                    <path d="M14 11v6" />
+                    <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+                  </svg>
+                </button>
+              </div>
             </>
           ) : (
             <>
